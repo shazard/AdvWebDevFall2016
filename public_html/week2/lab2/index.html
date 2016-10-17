@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            html, body {
+                margin: 0;
+                padding: 0;
+            }
+            .banner {
+                display: block;
+                background-color: #ccc;
+                border-bottom: 2px solid black;                
+            }
+            
+            .banner h1 {
+                margin-top: 0;                
+                text-align: center;
+            }
+            
+            ul.users li {
+                cursor: pointer;
+            }
+            
+            section.featured {
+                text-align: center;
+            }
+            section.featured figure img {
+                width: 150px;
+            }
+            
+            ul.users {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+            }
+           
+            ul.users li {float: left;}
+            
+            ul.users li {
+                display: inline-block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                transition: 0.3s;
+                font-size: 17px;
+            }
+          
+            ul.users li:hover {background-color: #555;}
+            
+            article.active {
+                background-color: #55b932;
+            }
+            
+            article.inactive {
+                background-color: #f0a6ac;
+            }
+
+        </style>
+    </head>
+    <body>
+        <header class="banner">
+            <h1>Customers</h1>
+            <nav>
+                <ul class="users"> <!-- /#User links go here --> </ul>
+            </nav>
+        </header>
+        
+        <section class="featured">
+            <figure><!-- /#User Image goes here --></figure>
+            <article>
+                <!-- /#User information goes here -->            
+            </article>
+        </section>
+                    
+        <script type="text/javascript">
+            
+            
+            
+            function displayList(selector, list) {
+                //console.log("got to display list function");
+                var dom = document.querySelector(selector);
+                /* this document fragment is just for performance 
+                 * We create all the elements to add to the page
+                 * add them to the fragment, then add the fragment to
+                 * the page.  Much faster than just adding all the
+                 * elements to the page one at a time
+                 * 
+                 */
+                var docfrag = document.createDocumentFragment();
+                
+                /* JavaScript now has built in foreach loops for arrays */
+                list.forEach(function(value) {
+                    console.log(value);
+                    /* you can use the creaeElement tag to create any HTML element you want */
+                    var li = document.createElement("li");            
+                    li.textContent = value.name.first + " " + value.name.last ;
+                    /* you can set any attribute using the function below for any Created element */
+                    li.setAttribute('class', 'link');
+                    var filePath = '../lab2/data/' + value._id + '.json';
+                    /*you can even attach events to the element */
+                    li.addEventListener('click', makeRequest(filePath).then(callbackUser.success, callbackUser.error));
+                    docfrag.appendChild(li);
+                });
+                
+                /* after the fragment is completed we can add it to the page */
+                dom.appendChild(docfrag);
+            }
+            
+            function displayContent(selector, item) {
+                console.log(item);
+                var dom = document.querySelector(selector);
+                var docfrag = document.createDocumentFragment();
+                
+                /* remove any child elements */
+                
+                while (dom.firstChild) {
+                    dom.removeChild(dom.firstChild);
+                }
+                
+                docfrag.appendChild( createParagraphElement('About: ', item.about) );
+
+                dom.appendChild(docfrag);
+            }
+            
+            /* custom function to generate a template for our view */
+            function createParagraphElement(label, text) {
+                var pTag = document.createElement('p'),
+                    strongTag = document.createElement('strong'),
+                    strongText = document.createTextNode(label),
+                    pText = document.createTextNode(text);
+          
+                    strongTag.appendChild(strongText);
+                    pTag.appendChild(strongTag);  
+                    pTag.appendChild(pText);  
+                    return pTag;
+            }
+
+            function makeRequest(url) {
+
+                var promise = new Promise( httpPromise );
+                
+                function httpPromise(resolve, reject) {
+                    var httpRequest = new XMLHttpRequest();
+
+                     if ( !httpRequest ) {
+                       reject('Giving up :( Cannot create an XMLHTTP instance');
+                     }
+                     
+                     httpRequest.open('GET', url);
+                     httpRequest.send();
+                     
+                     httpRequest.addEventListener('load', httpResolve.bind(httpRequest));
+                     httpRequest.addEventListener('error', httpReject.bind(httpRequest));
+                     
+                     function httpResolve() {                        
+                        if ( this.status >= 200 && this.status < 300 ) {
+                            // Performs the function "resolve" when this.status is equal to 2xx
+                            resolve(JSON.parse(this.response));
+                        } else {
+                            // Performs the function "reject" when this.status is different than 2xx
+                            reject(this.statusText);
+                        }                          
+                     }
+                     
+                     function httpReject() {
+                         reject(this.statusText);
+                     }
+                }
+                
+                // Return the promise
+                return promise;
+            }
+            
+            var callback = {
+              success: function(data) {
+                console.log(data.users);
+                displayList('ul.users', data.users);
+              },
+              error: function(data) {
+                console.log(2, 'error', data);
+              }
+            };
+            
+            var callbackUser = {
+              success: function(data) {
+                console.log(data);
+                displayContent('featured', data);
+              },
+              error: function(data) {
+                console.log(2, 'error', data);
+              }
+            };
+
+            
+            var jsonList;
+            
+            makeRequest('../lab2/data/users.json').then(callback.success, callback.error).then();
+            //console.log(window.jsonList);window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
+            
+            //window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
+
+        </script>
+    </body>
+</html>
