@@ -104,7 +104,7 @@
                     li.setAttribute('class', 'link');
                     var filePath = '../lab2/data/' + value._id + '.json';
                     /*you can even attach events to the element */
-                    li.addEventListener('click', makeRequest(filePath).then(callbackUser.success, callbackUser.error));
+                    li.addEventListener('click', makeClickey.bind(null, filePath));
                     docfrag.appendChild(li);
                 });
                 
@@ -113,7 +113,7 @@
             }
             
             function displayContent(selector, item) {
-                console.log(item);
+                //console.log(item);
                 var dom = document.querySelector(selector);
                 var docfrag = document.createDocumentFragment();
                 
@@ -122,8 +122,38 @@
                 while (dom.firstChild) {
                     dom.removeChild(dom.firstChild);
                 }
+                //Full Name name.first + name.last
+                //company company
+                //email email
+                //phone phone
+                //address address
+                //registered registered
+                //age age
+                //eyeColor eyeColor
+                //greeting greeting
+                //favoriteFruit favoriteFruit
+                //balance balance
+                //about about   
                 
-                docfrag.appendChild( createParagraphElement('About: ', item.about) );
+                var pic = document.createElement("img");            
+                
+                pic.setAttribute('src', '../lab2/img/' + item.picture);
+                pic.setAttribute("height", "250");
+                
+                dom.appendChild(pic);
+
+                docfrag.appendChild( createParagraphElement('Name: ', item.name.first + " " + item.name.last) );
+                docfrag.appendChild( createParagraphElement('\nCompany: ', item.company) );
+                docfrag.appendChild( createParagraphElement('\nEmail: ', item.email) );
+                docfrag.appendChild( createParagraphElement('\nPhone: ', item.phone) );
+                docfrag.appendChild( createParagraphElement('\nAddress: ', item.address) );
+                docfrag.appendChild( createParagraphElement('\nRegistered: ', item.registered) );
+                docfrag.appendChild( createParagraphElement('\nAge: ', item.age) );
+                docfrag.appendChild( createParagraphElement('\nEye Color: ', item.eyeColor) );
+                docfrag.appendChild( createParagraphElement('\nGreeting: ', item.greeting) );
+                docfrag.appendChild( createParagraphElement('\nFavorite Fruit: ', item.favoriteFruit) );
+                docfrag.appendChild( createParagraphElement('\nBalance: ', item.balance) );
+                docfrag.appendChild( createParagraphElement('\nAbout: ', item.about) );
 
                 dom.appendChild(docfrag);
             }
@@ -179,7 +209,7 @@
             
             var callback = {
               success: function(data) {
-                console.log(data.users);
+                //console.log(data.users);
                 displayList('ul.users', data.users);
               },
               error: function(data) {
@@ -189,18 +219,23 @@
             
             var callbackUser = {
               success: function(data) {
-                console.log(data);
-                displayContent('featured', data);
+                //console.log(data);
+                displayContent('section.featured', data);
               },
               error: function(data) {
                 console.log(2, 'error', data);
               }
             };
+            
+            function makeClickey(filePath)
+            {
+                makeRequest(filePath).then(callbackUser.success, callbackUser.error);
+            }
 
             
-            var jsonList;
+            //var jsonList;
             
-            makeRequest('../lab2/data/users.json').then(callback.success, callback.error).then();
+            makeRequest('../lab2/data/users.json').then(callback.success, callback.error);
             //console.log(window.jsonList);window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
             
             //window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
