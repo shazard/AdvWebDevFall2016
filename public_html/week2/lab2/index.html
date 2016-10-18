@@ -117,11 +117,28 @@
                 var dom = document.querySelector(selector);
                 var docfrag = document.createDocumentFragment();
                 
+                var figure = document.querySelector("figure");
+                var figureFragment = document.createDocumentFragment();
+                
                 /* remove any child elements */
                 
+                while (figure.firstChild) {
+                    figure.removeChild(figure.firstChild);
+                }
+
                 while (dom.firstChild) {
                     dom.removeChild(dom.firstChild);
                 }
+                
+                if (item.isActive)
+                {
+                    dom.setAttribute('class', 'active')
+                }
+                else
+                {
+                    dom.setAttribute('class', 'inactive')
+                }
+                
                 //Full Name name.first + name.last
                 //company company
                 //email email
@@ -135,12 +152,13 @@
                 //balance balance
                 //about about   
                 
-                var pic = document.createElement("img");            
-                
+                var pic = document.createElement("img");
                 pic.setAttribute('src', '../lab2/img/' + item.picture);
-                pic.setAttribute("height", "250");
                 
-                dom.appendChild(pic);
+                figureFragment.appendChild(pic);
+                
+                figure.appendChild(figureFragment);
+                
 
                 docfrag.appendChild( createParagraphElement('Name: ', item.name.first + " " + item.name.last) );
                 docfrag.appendChild( createParagraphElement('\nCompany: ', item.company) );
@@ -154,6 +172,8 @@
                 docfrag.appendChild( createParagraphElement('\nFavorite Fruit: ', item.favoriteFruit) );
                 docfrag.appendChild( createParagraphElement('\nBalance: ', item.balance) );
                 docfrag.appendChild( createParagraphElement('\nAbout: ', item.about) );
+                
+                
 
                 dom.appendChild(docfrag);
             }
@@ -220,7 +240,7 @@
             var callbackUser = {
               success: function(data) {
                 //console.log(data);
-                displayContent('section.featured', data);
+                displayContent('article', data);
               },
               error: function(data) {
                 console.log(2, 'error', data);
