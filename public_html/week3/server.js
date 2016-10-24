@@ -36,7 +36,8 @@ http.createServer(function (request, response) {
              */
             response.writeHead(200, {'Content-Type': 'application/json'}); 
             
-            response.write(data.toString());
+            //response.write(data.toString());
+            response.write(data);
         }     
         
         /* the response is complete */
