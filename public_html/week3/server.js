@@ -57,15 +57,13 @@ http.createServer(function (request, response) {
              * Content Type: text/html 
              */
             response.writeHead(200, {'Content-Type': 'text/html'});
-            response.write(data.toString());
+            response.write(data);
+
             
         }
         /* the response is complete */
         response.end();
     }
-
-
-   
 }).listen(3000);
 
 
