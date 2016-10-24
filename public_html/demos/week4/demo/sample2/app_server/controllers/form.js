@@ -1,7 +1,10 @@
 
 function formView(req, res) {
     
-     res.render('form', { title: 'Form Page' });
+     res.render('form', {
+         title: 'Form Page',
+         message: 'Here is my message'
+    });
 }
 
 function formPost(req, res) {
