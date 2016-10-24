@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Week 3</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class = "titles">Welcome to the index page</div>
+        <div class = "titles">List of titles:</div>
         <div class = "output"></div>
-        
         
         <script type="text/javascript">
 
@@ -26,62 +25,19 @@
                 
                 /* JavaScript now has built in foreach loops for arrays */
                 list.forEach(function(value) {
-                    console.log(value);
+                    console.log("Title: " + value.title);
                     /* you can use the creaeElement tag to create any HTML element you want */
-                    var li = document.createElement("li");            
-                    li.textContent = "Title: " + value.title + "<br/><br/>" ;
+                    var par = document.createElement("p");            
+                    par.textContent = "Title: " + value.title ;
+                    docfrag.appendChild(par);
                     
                 });
                 
                 /* after the fragment is completed we can add it to the page */
                 dom.appendChild(docfrag);
+                //console.log("passed appendchild");
             }
-            
-            function displayContent(selector, item) {
-                //console.log(item);
-                var dom = document.querySelector(selector);
-                var docfrag = document.createDocumentFragment();
 
-                
-                /* remove any child elements */
-                
-
-
-                while (dom.firstChild) {
-                    dom.removeChild(dom.firstChild);
-                }
-
-                
-                docfrag.appendChild( createParagraphElement('Name: ', item.name.first + " " + item.name.last) );
-                docfrag.appendChild( createParagraphElement('\nCompany: ', item.company) );
-                docfrag.appendChild( createParagraphElement('\nEmail: ', item.email) );
-                docfrag.appendChild( createParagraphElement('\nPhone: ', item.phone) );
-                docfrag.appendChild( createParagraphElement('\nAddress: ', item.address) );
-                docfrag.appendChild( createParagraphElement('\nRegistered: ', item.registered) );
-                docfrag.appendChild( createParagraphElement('\nAge: ', item.age) );
-                docfrag.appendChild( createParagraphElement('\nEye Color: ', item.eyeColor) );
-                docfrag.appendChild( createParagraphElement('\nGreeting: ', item.greeting) );
-                docfrag.appendChild( createParagraphElement('\nFavorite Fruit: ', item.favoriteFruit) );
-                docfrag.appendChild( createParagraphElement('\nBalance: ', item.balance) );
-                docfrag.appendChild( createParagraphElement('\nAbout: ', item.about) );
-                
-                
-
-                dom.appendChild(docfrag);
-            }
-            
-            /* custom function to generate a template for our view */
-            function createParagraphElement(label, text) {
-                var pTag = document.createElement('p'),
-                    strongTag = document.createElement('strong'),
-                    strongText = document.createTextNode(label),
-                    pText = document.createTextNode(text);
-          
-                    strongTag.appendChild(strongText);
-                    pTag.appendChild(strongTag);  
-                    pTag.appendChild(pText);  
-                    return pTag;
-            }
 
             function makeRequest(url) {
 
@@ -121,36 +77,16 @@
             
             var callback = {
               success: function(data) {
-                //console.log(data.users);
-                displayList('ul.users', data.users);
-              },
-              error: function(data) {
-                console.log(2, 'error', data);
-              }
-            };
-            
-            var callbackUser = {
-              success: function(data) {
                 //console.log(data);
-                displayContent('article', data);
+                displayList('div.output', data);
               },
               error: function(data) {
                 console.log(2, 'error', data);
               }
             };
-            
-            function makeClickey(filePath)
-            {
-                makeRequest(filePath).then(callbackUser.success, callbackUser.error);
-            }
+                        
+            makeRequest('todo.json').then(callback.success, callback.error);
 
-            
-            //var jsonList;
-            
-            makeRequest('../lab2/data/users.json').then(callback.success, callback.error);
-            //console.log(window.jsonList);window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
-            
-            //window.addEventListener('load', displayList.bind(null, 'ul.users', window.jsonList));
 
         </script>
     </body>
