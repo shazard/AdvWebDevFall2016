@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div class = "titles">List of titles:</div>
+        <div class = "titles"><b>List of titles:</b></div>
         <div class = "output"></div>
         
         <script type="text/javascript">
@@ -85,7 +85,7 @@
               }
             };
                         
-            makeRequest('todo.json').then(callback.success, callback.error);
+            makeRequest('http://localhost:3000/todo').then(callback.success, callback.error);
 
 
         </script>
