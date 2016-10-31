@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//update this
+//use the route files you created
 app.use('/', routes);
 app.use('/form', routesForm);
 app.use('/about', routesAbout);

@@ -6,6 +6,10 @@ block content
  h2=message
  form.form-horizontal(action="/form", method="post", role="form")
         .form-group
-          label.control-label(for="name") Author         
-            input#name.form-control(name="author")        
-        input(type="submit" value="Add my review") 
+          label.control-label(for="name") Name         
+            input#name.form-control(name="name")
+          label.control-label(for="email") Email         
+            input#email.form-control(name="email") 
+          label.control-label(for="comments") Comments         
+            input#comments.form-control(name="comments")         
+        input(type="submit" value="Submit") 
