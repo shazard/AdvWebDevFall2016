@@ -1,0 +1,33 @@
+extends layout
+
+block content
+ h1=title
+
+ h2=message
+ form(action="/update", method="post", role="form")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="firstName") First Name
+          .col-xs-12.col-sm-10
+            input#firstName.form-control(name="firstName" value="#{results.firstName}")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="lastName") Last Name
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="lastName" value="#{results.lastName}")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="department") Department
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="department" value="#{results.department}")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="startDate") Start Date
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="startDate" value="#{results.startDate}")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="jobTitle") Job Title
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="jobTitle" value="#{results.jobTitle}")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="salary") Salary
+          .col-xs-12.col-sm-10
+            input#name.form-control(name="salary" value="#{results.salary}")
+        input(type="hidden" name="_id" value="#{results._id}")
+        input(type="submit" value="Update Employee") 
