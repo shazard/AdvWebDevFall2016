@@ -103,6 +103,7 @@ module.exports.view = function(req, res){
 module.exports.update = function(req, res){
     //params object contains the parameters specified in the post request (/routes/index.js)
     var id = req.params.id;
+    var msg = '';
     if (req.method === 'POST') {
         
     /*
@@ -129,7 +130,7 @@ module.exports.update = function(req, res){
             msg = "Updated";
         };
         EmployeeData.update(query, update, options, callback);
-         
+        msg = 'data has been updated';
      }
     
     
@@ -140,6 +141,7 @@ module.exports.update = function(req, res){
          if ( results ) {
             res.render('update', { 
                 title: 'Update',
+                message: msg,
                 results : results
             });
         } else {
