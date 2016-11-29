@@ -1,0 +1,25 @@
+mixin outputEmployees(results)
+    table(border="1")
+        thead   
+            tr
+                th First Name
+                th Last Name
+                th Department
+                th Start Date
+                th Job Title
+                th Salary
+        tbody
+        - each stuff in results
+            tr
+                td 
+                    = stuff.firstName
+                td 
+                    = stuff.lastName
+                td 
+                    = stuff.department
+                td 
+                    = stuff.startDate
+                td
+                    = stuff.jobTitle
+                td
+                    = stuff.salary
