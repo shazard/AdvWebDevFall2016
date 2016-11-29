@@ -110,7 +110,7 @@ module.exports.employeesUpdateOne = function(req, res) {
         employeeData.department = req.body.department;
         employeeData.startDate = req.body.startDate;
         employeeData.jobTitle = req.body.jobTitle;
-        employeeData.salary = req.body.department;
+        employeeData.salary = req.body.salary;
 
         employeeData.save(function(err, data) {
           if (err) {
