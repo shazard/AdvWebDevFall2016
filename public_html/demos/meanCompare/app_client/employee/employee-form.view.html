@@ -1,0 +1,28 @@
+<h1>{{vm.title}}</h1>
+
+<div class="content">
+        
+    <p ng-class="{'msg' : vm.message.length}">{{vm.message}}</p>
+    <p><a href="#/">Home</a></p>
+    
+    <br />
+    <br />
+    <div class="form">
+        <label>First Name</label>            
+        <input type="text" name="firstName" value="" placeholder="" ng-model="vm.data.firstName" />
+        <br /> <br />
+        <label>Last Name</label>
+        <input type="text" name="lastName" value="" ng-model="vm.data.lastName" />
+        <br /> <br />
+        <label>Department</label>            
+        <input type="text" name="department" value="" placeholder="" ng-model="vm.data.department" />
+        <br /> <br />
+        <label>Job Title</label>            
+        <input type="text" name="jobTitle" value="" placeholder="" ng-model="vm.data.jobTitle" />
+        <br /> <br />
+        <label>Salary</label>            
+        <input type="text" name="salary" value="" placeholder="" ng-model="vm.data.salary" />
+        <br /> <br />
+        <input type="submit" value="Submit" ng-click="vm.submit()" />
+    </div>
+</div>
