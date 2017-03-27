@@ -1,0 +1,21 @@
+extends layout
+
+block content
+ h1=title
+
+ h2=message
+ form.form-horizontal(action="/", method="post", role="form")
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="product") Product
+          .col-xs-12.col-sm-10
+            input#product.form-control(name="product" required)
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="description") Description
+          .col-xs-12.col-sm-10
+            input#description.form-control(name="description" required)
+        .form-group
+          label.col-xs-10.col-sm-2.control-label(for="price") Price
+          .col-xs-12.col-sm-10
+            input#price.form-control(name="price")
+        
+        input(type="submit" value="Add Product") 

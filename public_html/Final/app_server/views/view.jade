@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1=title
+
+    p=removed
+    table(class='table')
+        thead   
+            tr
+                th Product
+                th Description
+                th Price
+
+        tbody
+        - each stuff in results
+            tr
+                td 
+                    = stuff.product
+                td 
+                    = stuff.description
+                td 
+                    = stuff.price
